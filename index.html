@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="uk" class="h-full bg-slate-950 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тематична контрольна робота № 1 — ХМФК</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- html2pdf Library for direct PDF generation and downloading -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @media print {
+            html, body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                height: auto !important;
+                min-height: auto !important;
+                overflow: visible !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            header, #loginScreen, #examScreen, .no-print, #securityModal, #confirmModal {
+                display: none !important;
+            }
+            #reportScreen {
+                display: block !important;
+                position: static !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 10px !important;
+                background: #ffffff !important;
+                color: #000000 !important;
+                box-shadow: none !important;
+            }
+            .print-card {
+                box-shadow: none !important;
+                border: 1px solid #94a3b8 !important;
+                background: #ffffff !important;
+                color: #000000 !important;
+                break-inside: avoid;
+                padding: 15px !important;
+            }
+            .print-card * {
+                color: #000000 !important;
+                background: transparent !important;
+                border-color: #cbd5e1 !important;
+            }
+            .print-card .text-sky-400, .print-card .text-sky-300, .print-card .text-emerald-400 {
+                color: #0284c7 !important;
+                font-weight: bold !important;
+            }
+            .print-card .text-rose-400 {
+                color: #e11d48 !important;
+                font-weight: bold !important;
+            }
+            .print-card .text-amber-400 {
+                color: #d97706 !important;
+                font-weight: bold !important;
+            }
+        }
+
+        /* Dedicated styling when html2pdf captures reportScreen */
+        .pdf-export-mode {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            padding: 20px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        .pdf-export-mode * {
+            color: #0f172a !important;
+            border-color: #cbd5e1 !important;
+        }
+        .pdf-export-mode .print-card {
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            background: transparent !important;
+        }
+        .pdf-export-mode .bg-slate-900,
+        .pdf-export-mode .bg-slate-950,
+        .pdf-export-mode .bg-slate-950\/60,
+        .pdf-export-mode .bg-slate-950\/80,
+        .pdf-export-mode .bg-slate-900\/90,
+        .pdf-export-mode .bg-slate-900\/60 {
+            background-color: #f8fafc !important;
+            border: 1px solid #e2e8f0 !important;
+        }
+        .pdf-export-mode .text-sky-400, 
+        .pdf-export-mode .text-sky-300 {
+            color: #0284c7 !important;
+            font-weight: bold !important;
+        }
+        .pdf-export-mode .text-emerald-400 {
+            color: #16a34a !important;
+            font-weight: bold !important;
+        }
+        .pdf-export-mode .text-rose-400 {
+            color: #dc2626 !important;
+            font-weight: bold !important;
+        }
+        .pdf-export-mode .text-amber-400 {
+            color: #d97706 !important;
+            font-weight: bold !important;
+        }
+        .pdf-export-mode .text-slate-100,
+        .pdf-export-mode .text-slate-200,
+        .pdf-export-mode .text-slate-300 {
+            color: #0f172a !important;
+        }
+        .pdf-export-mode .text-slate-400 {
+            color: #475569 !important;
+        }
+        .pdf-export-mode #reportTaskDetails > div {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+            margin-bottom: 8px !important;
+        }
+
+        .select-none-custom {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans select-none-custom bg-slate-950 text-slate-100 antialiased overflow-x-hidden">
+
+    <!-- HEADER BAR -->
+    <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-sky-500/20">
+                    <i class="fa-solid fa-atom"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-bold tracking-wider text-sky-400 uppercase block">Харківський машинобудівний фаховий коледж</span>
+                    <h1 class="text-xs sm:text-sm font-extrabold text-slate-100">Тематична контрольна робота № 1 з хімії</h1>
+                </div>
+            </div>
+            <div id="userInfoHeader" class="hidden flex items-center space-x-4">
+                <div class="text-right hidden sm:block">
+                    <div id="headerStudentName" class="text-xs font-semibold text-slate-200"></div>
+                    <div id="headerGroup" class="text-[10px] font-mono text-slate-400"></div>
+                </div>
+                <div id="variantBadge" class="bg-sky-500/10 border border-sky-500/30 text-sky-400 font-mono font-bold px-3 py-1 rounded-lg text-xs">
+                    Варіант <span id="badgeVariantNum">1</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-center">
+
+        <!-- 1. LOGIN & VARIANT SELECTION SCREEN -->
+        <div id="loginScreen" class="max-w-lg w-full mx-auto my-auto bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-slate-800 text-sky-400 border border-slate-700 mb-3 shadow-inner">
+                    <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                </div>
+                <p class="text-xs font-bold text-sky-400 uppercase tracking-widest mb-1">Харківський машинобудівний фаховий коледж</p>
+                <h2 class="text-xl font-black text-slate-100">Тематичний контроль № 1</h2>
+                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                    «Основні поняття і закони хімії. Будова атома. Хімічний зв’язок та будова речовини»
+                </p>
+            </div>
+
+            <form id="loginForm" onsubmit="startExam(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Прізвище та Ім'я студента</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+                        <input type="text" id="studentName" required placeholder="напр. Коваленко Олександр" 
+                            class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-11 pr-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Номер академічної групи</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-users absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+                        <input type="text" id="studentGroup" required placeholder="напр. М-21 або АТ-12" 
+                            class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-11 pr-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Вибір варіанта контрольної роботи (Всього: 25)</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-list-ol absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+                        <select id="studentVariantSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-11 pr-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition">
+                            <option value="auto">⚡ Автоматичний розподіл за ПІБ (Варіанти 1–25)</option>
+                            <script>
+                                for(let v=1; v<=25; v++) {
+                                    document.write(`<option value="${v}">Варіант № ${v}</option>`);
+                                }
+                            </script>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Academic Integrity Warning Box -->
+                <div class="bg-amber-950/40 border border-amber-500/30 rounded-2xl p-3.5 text-xs text-amber-200/90 space-y-1">
+                    <div class="font-bold flex items-center space-x-2 text-amber-400">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Правила академічного контролю та штрафи:</span>
+                    </div>
+                    <p class="text-[11px] leading-relaxed">
+                        • Заборонено перемикати вкладки, згортати браузер або копіювати текст.<br>
+                        • **За кожну фіксацію втрати фокусу від підсумкової оцінки відраховується <span class="font-bold text-amber-400">-0.5 балів штрафу!</span>**
+                    </p>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg shadow-sky-600/25 transition flex items-center justify-center space-x-2">
+                        <span>Розпочати контрольні завдання</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-5 pt-4 border-t border-slate-800/80 text-center text-[11px] text-slate-500">
+                <i class="fa-solid fa-shield-halved text-sky-400 mr-1"></i>
+                Система зафіксує протокол виконання та академічну доброчесність.
+            </div>
+        </div>
+
+        <!-- 2. EXAM WIZARD SCREEN -->
+        <div id="examScreen" class="hidden space-y-6">
+            
+            <!-- STEPPER NAVIGATION -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 no-print shadow-lg">
+                <div class="flex items-center justify-between mb-3 text-xs">
+                    <span class="font-bold text-slate-300">Завдання тематичної контрольної роботи (Всього: 12)</span>
+                    <span id="completionCounter" class="font-mono text-sky-400 font-bold">Заповнено: 0 / 12</span>
+                </div>
+                <div id="stepperGrid" class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-12 gap-2">
+                    <!-- Dynamic stepper buttons generated by JS -->
+                </div>
+            </div>
+
+            <!-- TASK CONTAINER CARD -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 sm:p-8 shadow-2xl min-h-[460px] flex flex-col justify-between">
+                
+                <div id="taskContent" class="space-y-6">
+                    <!-- Dynamic task interface loaded here -->
+                </div>
+
+                <!-- WIZARD NAVIGATION BUTTONS -->
+                <div class="flex items-center justify-between pt-6 border-t border-slate-800 mt-8 no-print">
+                    <button id="prevBtn" onclick="navigateTask(-1)" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition flex items-center space-x-2 disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        <span>Попереднє</span>
+                    </button>
+
+                    <button id="nextBtn" onclick="navigateTask(1)" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold rounded-xl transition flex items-center space-x-2 shadow-lg shadow-sky-600/20">
+                        <span>Наступне завдання</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                    <button id="submitExamBtn" onclick="openConfirmModal()" class="hidden px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-xl transition flex items-center space-x-2 shadow-lg shadow-emerald-600/20 font-bold">
+                        <i class="fa-solid fa-check-double"></i>
+                        <span>Завершити та згенерувати звіт</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 3. OFFICIAL EVALUATION REPORT SCREEN -->
+        <div id="reportScreen" class="hidden space-y-6 max-w-4xl mx-auto w-full">
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 print-card">
+                
+                <!-- Official Protocol Header -->
+                <div class="text-center border-b border-slate-800 pb-6">
+                    <p class="text-xs font-bold text-sky-400 tracking-wider uppercase mb-1">Харківський машинобудівний фаховий коледж</p>
+                    <h2 class="text-xl sm:text-2xl font-black text-slate-100">ОФІЦІЙНИЙ ПРОТОКОЛ КОНТРОЛЬНОЇ РОБОТИ № 1</h2>
+                    <p class="text-xs text-slate-400 mt-1">З дисципліни «Хімія» (Періодичний закон, будова атома та речовини)</p>
+                </div>
+
+                <!-- Meta Details & Final Evaluation -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-950 p-4 rounded-2xl border border-slate-800 text-xs">
+                    <div>
+                        <span class="text-slate-400 block">Студент:</span>
+                        <strong id="repStudentName" class="text-slate-100 text-sm font-semibold"></strong>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block">Група / Варіант:</span>
+                        <strong id="repGroupVar" class="text-slate-100 text-sm font-semibold"></strong>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block">Офіційна підсумкова оцінка:</span>
+                        <strong id="repGrade" class="text-emerald-400 text-base font-bold">0 / 12 балів</strong>
+                    </div>
+                </div>
+
+                <!-- Clear Scoring Calculation Explanation Banner -->
+                <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 text-xs space-y-2">
+                    <h4 class="font-bold text-sky-400 uppercase tracking-wider flex items-center space-x-2">
+                        <i class="fa-solid fa-calculator"></i>
+                        <span>Прозора методика підрахунку балів та оцінювання:</span>
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px] text-slate-300">
+                        <div class="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+                            <span class="font-bold text-slate-200 block mb-0.5">1. Первинні бали:</span>
+                            Сума за виконання 12 завдань (максимум <strong class="text-sky-300">14.5 балів</strong>).
+                        </div>
+                        <div class="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+                            <span class="font-bold text-slate-200 block mb-0.5">2. Переведення в 12 б.:</span>
+                            <code class="text-sky-300 font-mono">Базова оцінка = (Первинні / 14.5) &#215; 12</code>
+                        </div>
+                        <div class="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+                            <span class="font-bold text-slate-200 block mb-0.5">3. Штраф за академічність:</span>
+                            <code class="text-rose-300 font-mono">-0.5 б.</code> за кожну втрату фокусу (вкладку).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                    <div class="bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+                        <span class="text-slate-400 block">Первинні набрані бали:</span>
+                        <span id="repRawPoints" class="font-mono text-slate-200 font-bold">0 з 14.5 балів</span>
+                    </div>
+                    <div class="bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+                        <span class="text-slate-400 block">Фіксації втрати фокусу:</span>
+                        <span id="repFocusLoss" class="font-mono text-amber-400 font-bold">0 спроб</span>
+                    </div>
+                    <div class="bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+                        <span class="text-slate-400 block">Штрафні бали (-0.5 за вкладку):</span>
+                        <span id="repPenalty" class="font-mono text-rose-400 font-bold">0.0 балів</span>
+                    </div>
+                </div>
+
+                <!-- Detailed Analysis without disclosing answers -->
+                <div class="space-y-4 pt-2">
+                    <h3 class="text-xs font-bold text-slate-200 uppercase tracking-wider border-b border-slate-800 pb-2">Деталізований аналіз виконання завдань</h3>
+                    <div id="reportTaskDetails" class="space-y-3">
+                        <!-- Dynamic analysis items -->
+                    </div>
+                </div>
+
+                <!-- Action Controls -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-800 no-print">
+                    <p class="text-[11px] text-slate-400">
+                        * Натисніть кнопку, щоб завантажити протокол у форматі PDF або надрукувати його.
+                    </p>
+                    <div class="flex items-center space-x-3 w-full sm:w-auto">
+                        <button id="downloadPdfBtn" onclick="triggerPDFPrint()" class="w-full sm:w-auto px-6 py-3 bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs rounded-xl transition flex items-center justify-center space-x-2 shadow-lg shadow-sky-600/25">
+                            <i class="fa-solid fa-file-pdf text-sm"></i>
+                            <span>Завантажити PDF / Надрукувати</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- SECURITY WARNING MODAL -->
+    <div id="securityModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 no-print">
+        <div class="bg-slate-900 border border-amber-500/30 rounded-3xl p-6 max-w-sm w-full text-center space-y-4 shadow-2xl">
+            <div class="w-12 h-12 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="text-base font-bold text-slate-100">Попередження системи контролю</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Зафіксовано перемикання вкладки або втрату фокусу! До вашої роботи буде застосовано <strong class="text-amber-400">штраф -0.5 балів</strong> за кожне перемикання.
+            </p>
+            <button onclick="closeSecurityModal()" class="w-full py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold rounded-xl transition">
+                Зрозуміло, повернутися до роботи
+            </button>
+        </div>
+    </div>
+
+    <!-- CONFIRM SUBMISSION MODAL -->
+    <div id="confirmModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 no-print">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-sm w-full text-center space-y-4 shadow-2xl">
+            <div class="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-circle-question"></i>
+            </div>
+            <h3 class="text-base font-bold text-slate-100">Завершити контрольну роботу?</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Ви впевнені, що бажаєте завершити виконання та згенерувати офіційний протокол оцінювання?
+            </p>
+            <div class="flex space-x-3">
+                <button onclick="closeConfirmModal()" class="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl transition">
+                    Повернутися
+                </button>
+                <button onclick="submitExam()" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-xl transition font-bold">
+                    Так, завершити
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        let studentData = { name: '', group: '', variant: 1 };
+        let currentTaskIndex = 0;
+        let studentAnswers = {};
+        let focusLossCount = 0;
+
+        // Custom PDF Download & Print trigger function using html2pdf with fallback to window.print()
+        function triggerPDFPrint() {
+            const btn = document.getElementById('downloadPdfBtn');
+            const originalBtnHtml = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-sm mr-1"></i><span>Генерація PDF...</span>';
+                btn.disabled = true;
+            }
+
+            const reportEl = document.getElementById('reportScreen');
+
+            if (typeof html2pdf !== 'undefined') {
+                const sName = (studentData.name || 'Студент').trim().replace(/[^a-zA-Zа-яА-ЯіІїЇєЄґҐ0-9]/g, '_');
+                
+                // Add temporary pdf-export-mode class for crisp light document style
+                reportEl.classList.add('pdf-export-mode');
+
+                const opt = {
+                    margin:       [10, 10, 10, 10],
+                    filename:     `Протокол_${sName}_Варіант_${studentData.variant}.pdf`,
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff', scrollX: 0, scrollY: 0 },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                    pagebreak:    { mode: ['css', 'legacy'] }
+                };
+
+                // Hide no-print elements during PDF capture
+                const noPrintEls = reportEl.querySelectorAll('.no-print');
+                noPrintEls.forEach(el => el.style.display = 'none');
+
+                html2pdf().set(opt).from(reportEl).save().then(() => {
+                    noPrintEls.forEach(el => el.style.display = '');
+                    reportEl.classList.remove('pdf-export-mode');
+                    if (btn) {
+                        btn.innerHTML = originalBtnHtml;
+                        btn.disabled = false;
+                    }
+                }).catch(err => {
+                    console.error('html2pdf generation error:', err);
+                    noPrintEls.forEach(el => el.style.display = '');
+                    reportEl.classList.remove('pdf-export-mode');
+                    if (btn) {
+                        btn.innerHTML = originalBtnHtml;
+                        btn.disabled = false;
+                    }
+                    // Fallback to native print if html2pdf fails
+                    window.print();
+                });
+            } else {
+                window.print();
+                if (btn) {
+                    btn.innerHTML = originalBtnHtml;
+                    btn.disabled = false;
+                }
+            }
+        }
+
+        // Interactive Orbital Cells State for Task 3
+        let orbitalBoxes = {
+            '1s': [0],
+            '2s': [0],
+            '2p': [0, 0, 0],
+            '3s': [0],
+            '3p': [0, 0, 0],
+            '4s': [0],
+            '3d': [0, 0, 0, 0, 0]
+        };
+
+        // Superscript conversion utility
+        function toSuperscript(numStr) {
+            const map = { '0':'⁰', '1':'¹', '2':'²', '3':'³', '4':'⁴', '5':'⁵', '6':'⁶', '7':'⁷', '8':'⁸', '9':'⁹', '10':'¹⁰' };
+            return String(numStr).split('').map(ch => map[ch] || ch).join('');
+        }
+
+        // 25 College Variants Data Generator with Realistic Isotopes
+        const VARIANTS_DATA = Array.from({ length: 25 }, (_, i) => {
+            const vNum = i + 1;
+            
+            const realElementsPool = [
+                { symbol: 'P', name: 'Фосфор', Z: 15, A: 31, ionCharge: -3, valenceConf: '3s2 3p3', family: 'p', period: 3, group: 'VA', maxValence: 5, pairedValencePairs: 1, unpairedValenceE: 3 },
+                { symbol: 'Cl', name: 'Хлор', Z: 17, A: 35, ionCharge: -1, valenceConf: '3s2 3p5', family: 'p', period: 3, group: 'VIIA', maxValence: 7, pairedValencePairs: 3, unpairedValenceE: 1 },
+                { symbol: 'Fe', name: 'Ферум', Z: 26, A: 56, ionCharge: 3, valenceConf: '4s2 3d6', family: 'd', period: 4, group: 'VIIIB', maxValence: 6, pairedValencePairs: 1, unpairedValenceE: 4 },
+                { symbol: 'Ca', name: 'Кальцій', Z: 20, A: 40, ionCharge: 2, valenceConf: '4s2', family: 's', period: 4, group: 'IIA', maxValence: 2, pairedValencePairs: 1, unpairedValenceE: 0 },
+                { symbol: 'S', name: 'Сульфур', Z: 16, A: 32, ionCharge: -2, valenceConf: '3s2 3p4', family: 'p', period: 3, group: 'VIA', maxValence: 6, pairedValencePairs: 2, unpairedValenceE: 2 },
+                { symbol: 'Al', name: 'Алюміній', Z: 13, A: 27, ionCharge: 3, valenceConf: '3s2 3p1', family: 'p', period: 3, group: 'IIIA', maxValence: 3, pairedValencePairs: 1, unpairedValenceE: 1 },
+                { symbol: 'K', name: 'Калій', Z: 19, A: 39, ionCharge: 1, valenceConf: '4s1', family: 's', period: 4, group: 'IA', maxValence: 1, pairedValencePairs: 0, unpairedValenceE: 1 },
+                { symbol: 'O', name: 'Оксиген', Z: 8, A: 16, ionCharge: -2, valenceConf: '2s2 2p4', family: 'p', period: 2, group: 'VIA', maxValence: 2, pairedValencePairs: 2, unpairedValenceE: 2 },
+                { symbol: 'N', name: 'Нітроген', Z: 7, A: 14, ionCharge: -3, valenceConf: '2s2 2p3', family: 'p', period: 2, group: 'VA', maxValence: 4, pairedValencePairs: 1, unpairedValenceE: 3 },
+                { symbol: 'Mg', name: 'Магній', Z: 12, A: 24, ionCharge: 2, valenceConf: '3s2', family: 's', period: 3, group: 'IIA', maxValence: 2, pairedValencePairs: 1, unpairedValenceE: 0 }
+            ];
+
+            const elem = realElementsPool[i % realElementsPool.length];
+
+            return {
+                variant: vNum,
+                elem: elem,
+                t1: {
+                    period: elem.period,
+                    group: elem.group,
+                    elemSymbol: elem.symbol,
+                    massNum: elem.A,
+                    Z: elem.Z,
+                    ionCharge: elem.ionCharge,
+                    p: elem.Z,
+                    n: elem.A - elem.Z,
+                    e: elem.Z - elem.ionCharge
+                },
+                t2: {
+                    symbol: elem.symbol,
+                    fullConf: elem.Z <= 18 ? `1s² 2s² 2p⁶ ${elem.valenceConf}` : `1s² 2s² 2p⁶ 3s² 3p⁶ ${elem.valenceConf}`,
+                    family: elem.family
+                },
+                t3: {
+                    symbol: elem.symbol,
+                    valenceConf: elem.valenceConf,
+                    pairedValencePairs: elem.pairedValencePairs,
+                    unpairedValenceE: elem.unpairedValenceE
+                },
+                t4: {
+                    excitedElem: (i % 2 === 0) ? 'C' : 'S',
+                    groundUnpaired: (i % 2 === 0) ? 2 : 2,
+                    excitedUnpaired: (i % 2 === 0) ? 4 : 6,
+                    maxValence: (i % 2 === 0) ? 4 : 6
+                },
+                t5: {
+                    compounds: [
+                        { name: 'KCl', bond: 'іонний' },
+                        { name: 'HCl', bond: 'ковалентний полярний' },
+                        { name: 'Cl₂', bond: 'ковалентний неполярний' },
+                        { name: 'Cu', bond: 'металевий' }
+                    ]
+                },
+                t6: {
+                    sampleName: (i % 2 === 0) ? 'Кварц (SiO₂)' : 'Кухонна сіль (NaCl)',
+                    state: 'кристалічний',
+                    latticeType: (i % 2 === 0) ? 'атомна' : 'іонна',
+                    nodeParticles: (i % 2 === 0) ? 'атоми' : 'іони',
+                    propertiesDesc: (i % 2 === 0) 
+                        ? 'Речовина Х має високу температуру плавлення (>1700°C), дуже високу твердість, не розчиняється у воді, не проводить струм.' 
+                        : 'Речовина Х має високу температуру плавлення (801°C), крихка, добре розчиняється у воді, її розплав та розчин проводять електричний струм.'
+                },
+                t7: {
+                    gasFormula: (i % 2 === 0) ? 'CO₂' : 'SO₂',
+                    M: (i % 2 === 0) ? 44 : 64,
+                    V: 11.2,
+                    n_ans: 0.5,
+                    m_ans: (i % 2 === 0) ? 22 : 32
+                },
+                t8: {
+                    compound: (i % 2 === 0) ? 'Fe₂O₃' : 'Al₂O₃',
+                    Mr: (i % 2 === 0) ? 160 : 102,
+                    elemName: (i % 2 === 0) ? 'Феруму (Fe)' : 'Алюмінію (Al)',
+                    w_ans: (i % 2 === 0) ? 70.0 : 52.9,
+                    sampleMass: 200,
+                    m_elem_ans: (i % 2 === 0) ? 140.0 : 105.8
+                },
+                t9: {
+                    m_react: (i % 2 === 0) ? 100 : 50,
+                    reactFormula: 'CaCO₃',
+                    M_react: 100,
+                    n_react: (i % 2 === 0) ? 1.0 : 0.5,
+                    prodFormula: 'CO₂',
+                    M_prod: 44,
+                    n_prod: (i % 2 === 0) ? 1.0 : 0.5,
+                    V_prod: (i % 2 === 0) ? 22.4 : 11.2
+                },
+                t10: {
+                    compound: (i % 2 === 0) ? 'CuSO₄' : 'Fe₂(SO₄)₃',
+                    sampleMass: (i % 2 === 0) ? 160 : 400,
+                    elemName: (i % 2 === 0) ? 'Купруму (Cu)' : 'Феруму (Fe)',
+                    w_ans: (i % 2 === 0) ? 40.0 : 28.0,
+                    m_elem_ans: (i % 2 === 0) ? 64.0 : 112.0
+                },
+                t11: {
+                    items: [
+                        { quantity: 'Кількість речовини (n)', unit: 'моль' },
+                        { quantity: 'Молярна маса (M)', unit: 'г/моль' },
+                        { quantity: 'Молярний об\'єм (Vm)', unit: 'л/моль' },
+                        { quantity: 'Число Авогадро (Na)', unit: 'моль⁻¹' }
+                    ]
+                },
+                t12: {
+                    gasName: (i % 2 === 0) ? 'CH₄' : 'NH₃',
+                    M: (i % 2 === 0) ? 16 : 17,
+                    givenMass: (i % 2 === 0) ? 8 : 8.5,
+                    n_ans: 0.5,
+                    V_ans: 11.2
+                }
+            };
+        });
+
+        // Context Menu and Copy Shortcuts Protection
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'p' || e.key === 'a')) {
+                e.preventDefault();
+            }
+            if (e.key === 'F12') e.preventDefault();
+        });
+
+        // Tab Switching & Focus Loss Tracker with Penalty Notification
+        window.addEventListener('blur', () => {
+            if (!document.getElementById('loginScreen').classList.contains('hidden')) return;
+            focusLossCount++;
+            document.getElementById('securityModal').classList.remove('hidden');
+        });
+
+        function closeSecurityModal() {
+            document.getElementById('securityModal').classList.add('hidden');
+        }
+
+        function openConfirmModal() {
+            document.getElementById('confirmModal').classList.remove('hidden');
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').classList.add('hidden');
+        }
+
+        function startExam(event) {
+            event.preventDefault();
+            const name = document.getElementById('studentName').value.trim();
+            const group = document.getElementById('studentGroup').value.trim();
+            const selectedVariant = document.getElementById('studentVariantSelect').value;
+
+            if (!name || !group) return;
+
+            studentData.name = name;
+            studentData.group = group;
+
+            if (selectedVariant === 'auto') {
+                let hash = 0;
+                for (let i = 0; i < name.length; i++) hash += name.charCodeAt(i);
+                studentData.variant = (hash % 25) + 1;
+            } else {
+                studentData.variant = parseInt(selectedVariant, 10);
+            }
+
+            document.getElementById('headerStudentName').innerText = name;
+            document.getElementById('headerGroup').innerText = `Група: ${group}`;
+            document.getElementById('badgeVariantNum').innerText = studentData.variant;
+            document.getElementById('userInfoHeader').classList.remove('hidden');
+
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('examScreen').classList.remove('hidden');
+
+            renderStepper();
+            loadTask(0);
+        }
+
+        function renderStepper() {
+            const grid = document.getElementById('stepperGrid');
+            grid.innerHTML = '';
+            for (let i = 0; i < 12; i++) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.onclick = () => loadTask(i);
+                btn.className = `py-2 rounded-xl text-xs font-mono font-bold border transition flex items-center justify-center ${
+                    i === currentTaskIndex
+                        ? 'bg-sky-600 text-white border-sky-400 ring-2 ring-sky-500/50'
+                        : (studentAnswers[`task_done_${i+1}`] ? 'bg-emerald-950/60 text-emerald-400 border-emerald-800' : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700')
+                }`;
+                btn.innerText = `№${i + 1}`;
+                grid.appendChild(btn);
+            }
+            updateCompletionCounter();
+        }
+
+        function updateCompletionCounter() {
+            let filled = 0;
+            for (let i = 1; i <= 12; i++) {
+                if (studentAnswers[`task_done_${i}`]) filled++;
+            }
+            document.getElementById('completionCounter').innerText = `Заповнено: ${filled} / 12`;
+        }
+
+        function navigateTask(dir) {
+            const newIndex = currentTaskIndex + dir;
+            if (newIndex >= 0 && newIndex < 12) {
+                loadTask(newIndex);
+            }
+        }
+
+        function toggleOrbitalCell(sub, cellIdx) {
+            let curr = orbitalBoxes[sub][cellIdx];
+            orbitalBoxes[sub][cellIdx] = (curr + 1) % 3; // 0: empty, 1: ↑, 2: ↑↓
+            studentAnswers['orbitalState'] = orbitalBoxes;
+            loadTask(currentTaskIndex);
+            markTaskDone(3);
+        }
+
+        function updateElectronsCount() {
+            let count = 0;
+            for (let sub in orbitalBoxes) {
+                for (let val of orbitalBoxes[sub]) count += val;
+            }
+            const el = document.getElementById('totalElectronsCount');
+            if (el) el.innerText = `e⁻ на орбіталях: ${count}`;
+        }
+
+        function loadTask(index) {
+            currentTaskIndex = index;
+            renderStepper();
+
+            const v = VARIANTS_DATA[studentData.variant - 1];
+            const container = document.getElementById('taskContent');
+            container.innerHTML = '';
+
+            document.getElementById('prevBtn').disabled = (index === 0);
+            if (index === 11) {
+                document.getElementById('nextBtn').classList.add('hidden');
+                document.getElementById('submitExamBtn').classList.remove('hidden');
+            } else {
+                document.getElementById('nextBtn').classList.remove('hidden');
+                document.getElementById('submitExamBtn').classList.add('hidden');
+            }
+
+            switch(index) {
+                case 0:
+                    container.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Завдання 1. Позиція елемента, будова атома та іона</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-mono">1.0 бал</span>
+                            </div>
+                            <p class="text-sm font-medium text-slate-200 leading-relaxed">
+                                Проаналізуйте хімічний елемент з координатами: <strong>Період ${v.t1.period}</strong>, <strong>Група ${v.t1.group}</strong>. Обчисліть параметри для його нукліду <strong><sup>${v.t1.massNum}</sup>${v.t1.elemSymbol}</strong> та іона <strong>${v.t1.elemSymbol}<sup>${v.t1.ionCharge > 0 ? '+' + v.t1.ionCharge : v.t1.ionCharge}</sup></strong>:
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">1. Кількість протонів (p⁺):</label>
+                                    <input type="number" value="${studentAnswers.t1_p || ''}" oninput="saveVal('t1_p', this.value); markTaskDone(1)" placeholder="Вкажіть число..." 
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                </div>
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">2. Кількість нейтронів (n⁰):</label>
+                                    <input type="number" value="${studentAnswers.t1_n || ''}" oninput="saveVal('t1_n', this.value); markTaskDone(1)" placeholder="Вкажіть число..." 
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                </div>
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">3. Електрони іона (e⁻):</label>
+                                    <input type="number" value="${studentAnswers.t1_e || ''}" oninput="saveVal('t1_e', this.value); markTaskDone(1)" placeholder="Вкажіть число..." 
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 1:
+                    container.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Завдання 2. Електронна формула та електронне сімейство</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-mono">1.0 бал</span>
+                            </div>
+                            <p class="text-sm font-medium text-slate-200">
+                                Складіть повну електронну формулу атома елемента <strong>${v.t2.symbol}</strong> та вкажіть його електронну родину (s, p, d, f):
+                            </p>
+
+                            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-4">
+                                <div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <label class="text-xs font-semibold text-slate-300">Електронна формула (за допомогою клавіатури нижче):</label>
+                                        <button type="button" onclick="clearFormulaInput('t2_conf', 2)" class="text-[11px] text-rose-400 hover:text-rose-300 underline">Очистити</button>
+                                    </div>
+                                    <div id="t2_conf_display" class="min-h-[42px] bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 font-mono text-sm text-sky-400 flex items-center flex-wrap gap-1.5">
+                                        ${studentAnswers.t2_conf || 'Натискайте підрівні та степені...'}
+                                    </div>
+                                    
+                                    <div class="space-y-2 pt-3">
+                                        <div class="flex flex-wrap gap-1.5 text-xs font-mono">
+                                            <span class="text-slate-400 text-[11px] self-center mr-1">Підрівні:</span>
+                                            ${['1s', '2s', '2p', '3s', '3p', '4s', '3d', '4p'].map(sub => `
+                                                <button type="button" onclick="appendToken('t2_conf', '${sub}', 2)" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-md border border-slate-700 font-bold">${sub}</button>
+                                            `).join('')}
+                                        </div>
+                                        <div class="flex flex-wrap gap-1.5 text-xs font-mono">
+                                            <span class="text-slate-400 text-[11px] self-center mr-1">Електрони (степень):</span>
+                                            ${['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'].map(p => `
+                                                <button type="button" onclick="appendPowerToken('t2_conf', '${p}', 2)" class="px-2.5 py-1 bg-sky-950 hover:bg-sky-900 text-sky-300 rounded-md border border-sky-800 font-bold">${toSuperscript(p)}</button>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-300 mb-2">Оберіть електронне сімейство елемента:</label>
+                                    <select onchange="saveVal('t2_family', this.value); markTaskDone(2)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                                        <option value="">-- Оберіть сімейство --</option>
+                                        <option value="s" ${studentAnswers.t2_family === 's' ? 'selected' : ''}>s-елемент</option>
+                                        <option value="p" ${studentAnswers.t2_family === 'p' ? 'selected' : ''}>p-елемент</option>
+                                        <option value="d" ${studentAnswers.t2_family === 'd' ? 'selected' : ''}>d-елемент</option>
+                                        <option value="f" ${studentAnswers.t2_family === 'f' ? 'selected' : ''}>f-елемент</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 2:
+                    container.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Завдання 3. Графічна орбітальна формула (Практична робота № 2)</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-mono">1.5 бали</span>
+                            </div>
+                            <p class="text-sm font-medium text-slate-200">
+                                Складіть графічну електронну формулу для валентного шару атома <strong>${v.t3.symbol}</strong> (клікайте по комірках):
+                            </p>
+
+                            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-semibold text-slate-300">Клацайте комірку для додавання спінів [ ↑ / ↑↓ ]:</span>
+                                    <span id="totalElectronsCount" class="text-xs font-mono text-emerald-400 font-bold">e⁻ на орбіталях: 0</span>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                                    ${Object.keys(orbitalBoxes).map(sub => `
+                                        <div class="bg-slate-900/70 p-3 rounded-xl border border-slate-800 space-y-1.5">
+                                            <span class="text-[11px] font-mono text-sky-400 font-bold block">${sub}</span>
+                                            <div class="flex space-x-2">
+                                                ${orbitalBoxes[sub].map((val, cellIdx) => `
+                                                    <div onclick="toggleOrbitalCell('${sub}', ${cellIdx})" 
+                                                        class="w-10 h-10 bg-slate-950 border border-slate-700 rounded-lg flex items-center justify-center font-mono font-bold text-sky-400 cursor-pointer hover:border-sky-500 transition select-none text-base shadow-inner">
+                                                        ${val === 0 ? '' : (val === 1 ? '↑' : '↑↓')}
+                                                    </div>
+                                                `).join('')}
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-800">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-300 mb-1">Кількість спарених електронних пар валентного шару [↑↓]:</label>
+                                        <input type="number" value="${studentAnswers.t3_paired || ''}" oninput="saveVal('t3_paired', this.value); markTaskDone(3)" placeholder="Вкажіть число..." 
+                                            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-300 mb-1">Кількість неспарених електронів валентного шару [↑]:</label>
+                                        <input type="number" value="${studentAnswers.t3_unpaired || ''}" oninput="saveVal('t3_unpaired', this.value); markTaskDone(3)" placeholder="Вкажіть число..." 
+                                            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    updateElectronsCount();
+                    break;
+
+                case 3:
+                    container.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Завдання 4. Збуджений стан атома та валентні можливості</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-mono">1.0 бал</span>
+                            </div>
+                            <p class="text-sm font-medium text-slate-200">
+                                Проаналізуйте можливість переходу атома <strong>${v.t4.excitedElem}</strong> у збуджений стан (${v.t4.excitedElem}*):
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">1. Кількість неспарених e⁻ в основному стані:</label>
+                                    <input type="number" value="${studentAnswers.t4_ground || ''}" oninput="saveVal('t4_ground', this.value); markTaskDone(4)" placeholder="Введіть число..." 
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                </div>
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">2. Максимальна кількість неспарених e⁻ у збудженому стані (*):</label>
+                                    <input type="number" value="${studentAnswers.t4_excited || ''}" oninput="saveVal('t4_excited', this.value); markTaskDone(4)" placeholder="Введіть число..." 
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 4:
+                    container.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Завдання 5. Типи хімічного зв'язку та механізм утворення</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-mono">1.0 бал</span>
+                            </div>
+                            <p class="text-sm font-medium text-slate-200">
+                                Установіть відповідність між речовиною та типом хімічного зв'язку в ній:
+                            </p>
+
+                            <div class="space-y-3 pt-1">
+                                ${v.t5.compounds.map((c, idx) => `
+                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-slate-950 p-3.5 rounded-2xl border border-slate-800 gap-3">
+                                        <span class="text-xs font-bold font-mono text-sky-300">${idx+1}. Речовина: ${c.name}</span>
+                                        <select onchange="saveSubVal('t5_bonds', '${idx}', this.value); markTaskDone(5)" 
+                                            class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                                            <option value="">-- Оберіть тип зв'язку --</option>
+                                            <option value="ковалентний полярний" ${studentAnswers.t5_bonds && studentAnswers.t5_bonds[idx] === 'ковалентний полярний' ? 'selected' : ''}>ковалентний полярний</option>
+                                            <option value="металевий" ${studentAnswers.t5_bonds && studentAnswers.t5_bonds[idx] === 'металевий' ? 'selected' : ''}>металевий</option>
+                                            <option value="іонний" ${studentAnswers.t5_bonds && studentAnswers.t5_bonds[idx] === 'іонний' ? 'selected' : ''}>іонний</option>
+                                            <option value="ковалентний неполярний" ${studentAnswers.t5_bonds && studentAnswers.t5_bonds[idx] === 'ковалентний неполярний' ? 'selected' : ''}>ковалентний неполярний</option>
+                                        </select>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 5:
+                    container.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Завдання 6. Дослідження фізичних властивостей та будови речовини</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-mono">1.5 бали</span>
+                            </div>
+                            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 leading-relaxed text-xs text-slate-300 space-y-2">
+                                <span class="font-bold text-sky-400 block text-sm">Лабораторний опис досліджуваного зразка:</span>
+                                <p class="italic text-slate-200">«${v.t6.propertiesDesc}»</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">1. Стан твердої речовини:</label>
+                                    <select onchange="saveVal('t6_state', this.value); markTaskDone(6)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                                        <option value="">-- Оберіть стан --</option>
+                                        <option value="кристалічний" ${studentAnswers.t6_state === 'кристалічний' ? 'selected' : ''}>кристалічний</option>
+                                        <option value="аморфний" ${studentAnswers.t6_state === 'аморфний' ? 'selected' : ''}>аморфний</option>
+                                    </select>
+                                </div>
+
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">2. Тип кристалічної ґратки:</label>
+                                    <select onchange="saveVal('t6_lattice', this.value); markTaskDone(6)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                                        <option value="">-- Оберіть тип ґратки --</option>
+                                        <option value="іонна" ${studentAnswers.t6_lattice === 'іонна' ? 'selected' : ''}>іонна</option>
+                                        <option value="атомна" ${studentAnswers.t6_lattice === 'атомна' ? 'selected' : ''}>атомна</option>
+                                        <option value="молекулярна" ${studentAnswers.t6_lattice === 'молекулярна' ? 'selected' : ''}>молекулярна</option>
+                                        <option value="металева" ${studentAnswers.t6_lattice === 'металева' ? 'selected' : ''}>металева</option>
+                                    </select>
+                                </div>
+
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">3. Частинки у вузлах ґратки:</label>
+                                    <select onchange="saveVal('t6_nodes', this.value); markTaskDone(6)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                                        <option value="">-- Вузлові частинки --</option>
+                                        <option value="іони" ${studentAnswers.t6_nodes === 'іони' ? 'selected' : ''}>іони (катіони та аніони)</option>
+                                        <option value="атоми" ${studentAnswers.t6_nodes === 'атоми' ? 'selected' : ''}>атоми</option>
+                                        <option value="молекули" ${studentAnswers.t6_nodes === 'молекули' ? 'selected' : ''}>молекули</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 6:
+                    container.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Завдання 7. Розрахунки газу (Молярна маса, об'єм та маса)</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-mono">1.0 бал</span>
+                            </div>
+                            <p class="text-sm font-medium text-slate-200 leading-relaxed">
+                                Обчисліть масу порції газу <strong>${v.t7.gasFormula}</strong> об'ємом <strong>${v.t7.V} л</strong> (н.у.):
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">Крок 1. Кількість речовини n (моль):</label>
+                                    <input type="number" step="0.1" value="${studentAnswers.t7_n || ''}" oninput="saveVal('t7_n', this.value); markTaskDone(7)" placeholder="Введіть значення n..." 
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                </div>
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">Крок 2. Маса порції m (г):</label>
+                                    <input type="number" step="0.1" value="${studentAnswers.t7_m || ''}" oninput="saveVal('t7_m', this.value); markTaskDone(7)" placeholder="Введіть значення m..." 
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 7:
+                    container.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Завдання 8. Масова частка елемента та маса елемента у зразку</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-mono">1.0 бал</span>
+                            </div>
+                            <p class="text-sm font-medium text-slate-200 leading-relaxed">
+                                Обчисліть масову частку <strong>${v.t8.elemName}</strong> у сполуці <strong>${v.t8.compound}</strong> та масу цього елемента у зразку масою <strong>${v.t8.sampleMass} г</strong>:
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">1. Масова частка w (%):</label>
+                                    <input type="number" step="0.1" value="${studentAnswers.t8_w || ''}" oninput="saveVal('t8_w', this.value); markTaskDone(8)" placeholder="напр. 70.0" 
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                </div>
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">2. Маса елемента у зразку (г):</label>
+                                    <input type="number" step="0.1" value="${studentAnswers.t8_mElem || ''}" oninput="saveVal('t8_mElem', this.value); markTaskDone(8)" placeholder="Введіть масу..." 
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 8:
+                    container.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Завдання 9. Повний кількісний розрахунок за рівнянням реакції</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-mono">1.5 бали</span>
+                            </div>
+                            <p class="text-sm font-medium text-slate-200 leading-relaxed">
+                                Розрахуйте об'єм вуглекислого газу (${v.t9.prodFormula}), який виділиться при розкладі <strong>${v.t9.m_react} г</strong> кальцій карбонату (${v.t9.reactFormula}) за рівнянням:<br>
+                                <code class="font-mono text-sky-400 bg-slate-950 px-3 py-1 rounded-lg text-xs mt-1 inline-block border border-slate-800">CaCO₃ → CaO + CO₂↑</code>
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">Крок 1. Кількість моль реагенту n(CaCO₃) моль:</label>
+                                    <input type="number" step="0.1" value="${studentAnswers.t9_nReact || ''}" oninput="saveVal('t9_nReact', this.value); markTaskDone(9)" placeholder="Введіть n..." 
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                </div>
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">Крок 2. Об'єм утвореного газу V(CO₂) л:</label>
+                                    <input type="number" step="0.1" value="${studentAnswers.t9_Vprod || ''}" oninput="saveVal('t9_Vprod', this.value); markTaskDone(9)" placeholder="Введіть V..." 
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 9:
+                    container.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Завдання 10. Розрахунки складу сполуки</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-mono">1.0 бал</span>
+                            </div>
+                            <p class="text-sm font-medium text-slate-200 leading-relaxed">
+                                Обчисліть масову частку елемента <strong>${v.t10.elemName}</strong> у сполуці <strong>${v.t10.compound}</strong> (%) та його масу у зразку масою <strong>${v.t10.sampleMass} г</strong>:
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">Крок 1. Масова частка w (%):</label>
+                                    <input type="number" step="0.1" value="${studentAnswers.t10_w || ''}" oninput="saveVal('t10_w', this.value); markTaskDone(10)" placeholder="напр. 40.0" 
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                </div>
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">Крок 2. Маса елемента у зразку (г):</label>
+                                    <input type="number" step="0.1" value="${studentAnswers.t10_mElem || ''}" oninput="saveVal('t10_mElem', this.value); markTaskDone(10)" placeholder="Введіть масу..." 
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 10:
+                    container.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Завдання 11. Хімічні величини, формули та їх одиниці СІ</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-mono">1.0 бал</span>
+                            </div>
+                            <p class="text-sm font-medium text-slate-200">
+                                Установіть відповідність між величиною та її одиницею вимірювання в СІ:
+                            </p>
+
+                            <div class="space-y-3 pt-1">
+                                ${v.t11.items.map((item, idx) => `
+                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-slate-950 p-3.5 rounded-2xl border border-slate-800 gap-3">
+                                        <span class="text-xs font-semibold text-slate-300">${idx+1}. ${item.quantity}</span>
+                                        <select onchange="saveSubVal('t11_units', '${idx}', this.value); markTaskDone(11)" 
+                                            class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                                            <option value="">-- Оберіть одиницю СІ --</option>
+                                            <option value="г/моль" ${studentAnswers.t11_units && studentAnswers.t11_units[idx] === 'г/моль' ? 'selected' : ''}>г/моль</option>
+                                            <option value="моль" ${studentAnswers.t11_units && studentAnswers.t11_units[idx] === 'моль' ? 'selected' : ''}>моль</option>
+                                            <option value="л/моль" ${studentAnswers.t11_units && studentAnswers.t11_units[idx] === 'л/моль' ? 'selected' : ''}>л/моль</option>
+                                            <option value="моль⁻¹" ${studentAnswers.t11_units && studentAnswers.t11_units[idx] === 'моль⁻¹' ? 'selected' : ''}>1/моль (моль⁻¹)</option>
+                                        </select>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 11:
+                    container.innerHTML = `
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">Завдання 12. Комплексна розрахункова задача</span>
+                                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-mono">1.5 бали</span>
+                            </div>
+                            <p class="text-sm font-medium text-slate-200 leading-relaxed">
+                                Обчисліть об'єм (л, за н.у.), який займає порція газу <strong>${v.t12.gasName}</strong> масою <strong>${v.t12.givenMass} г</strong>:
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">Крок 1. Кількість речовини газу n (моль):</label>
+                                    <input type="number" step="0.1" value="${studentAnswers.t12_n || ''}" oninput="saveVal('t12_n', this.value); markTaskDone(12)" placeholder="Введіть n..." 
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                </div>
+                                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                    <label class="block text-xs font-semibold text-slate-300">Крок 2. Об'єм газу V (л):</label>
+                                    <input type="number" step="0.1" value="${studentAnswers.t12_V || ''}" oninput="saveVal('t12_V', this.value); markTaskDone(12)" placeholder="Введіть V..." 
+                                        class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-sm focus:border-sky-500 focus:outline-none">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        function saveVal(key, val) {
+            studentAnswers[key] = val;
+            updateCompletionCounter();
+        }
+
+        function saveSubVal(parentKey, subIndex, val) {
+            if (!studentAnswers[parentKey]) studentAnswers[parentKey] = {};
+            studentAnswers[parentKey][subIndex] = val;
+            updateCompletionCounter();
+        }
+
+        function markTaskDone(num) {
+            studentAnswers[`task_done_${num}`] = true;
+            renderStepper();
+        }
+
+        function appendToken(targetKey, token, taskNum) {
+            let curr = studentAnswers[targetKey] || '';
+            if (curr === 'Натискайте підрівні та степені...') curr = '';
+            studentAnswers[targetKey] = curr + token + ' ';
+            const el = document.getElementById(`${targetKey}_display`);
+            if (el) el.innerText = studentAnswers[targetKey];
+            markTaskDone(taskNum);
+        }
+
+        function appendPowerToken(targetKey, powerStr, taskNum) {
+            let curr = studentAnswers[targetKey] || '';
+            if (curr === 'Натискайте підрівні та степені...') curr = '';
+            studentAnswers[targetKey] = curr.trimEnd() + toSuperscript(powerStr) + ' ';
+            const el = document.getElementById(`${targetKey}_display`);
+            if (el) el.innerHTML = studentAnswers[targetKey];
+            markTaskDone(taskNum);
+        }
+
+        function clearFormulaInput(targetKey, taskNum) {
+            studentAnswers[targetKey] = '';
+            const el = document.getElementById(`${targetKey}_display`);
+            if (el) el.innerText = 'Натискайте підрівні та степені...';
+            markTaskDone(taskNum);
+        }
+
+        function submitExam() {
+            closeConfirmModal();
+
+            try {
+                const v = VARIANTS_DATA[studentData.variant - 1];
+                let rawPoints = 0;
+                let detailsHtml = '';
+
+                // Max achievable primary points: 14.5
+                // 1. Task 1 (1.0 pt)
+                const userP = parseInt(studentAnswers.t1_p || 0, 10);
+                const userN = parseInt(studentAnswers.t1_n || 0, 10);
+                const userE = parseInt(studentAnswers.t1_e || 0, 10);
+
+                const t1_p_ok = userP === v.t1.p;
+                const t1_n_ok = userN === v.t1.n;
+                const t1_e_ok = userE === v.t1.e;
+                const t1_pts = (t1_p_ok ? 0.33 : 0) + (t1_n_ok ? 0.33 : 0) + (t1_e_ok ? 0.34 : 0);
+                rawPoints += t1_pts;
+                detailsHtml += renderReportItem(1, 'Параметри ядра та іона', t1_pts >= 0.9, t1_pts, 1.0,
+                    `p⁺: ${t1_p_ok?'вірно (0.33 б.)':'помилка (0 б.)'}, n⁰: ${t1_n_ok?'вірно (0.33 б.)':'помилка (0 б.)'}, e⁻ іона: ${t1_e_ok?'вірно (0.34 б.)':'помилка (0 б.)'}.`);
+
+                // 2. Task 2 (1.0 pt)
+                let t2_pts = 0;
+                if (studentAnswers.t2_conf && studentAnswers.t2_conf.trim().length > 3) t2_pts += 0.5;
+                if (studentAnswers.t2_family === v.t2.family) t2_pts += 0.5;
+                rawPoints += t2_pts;
+                detailsHtml += renderReportItem(2, 'Електронне сімейство та формула', t2_pts === 1.0, t2_pts, 1.0,
+                    `Електронна формула: ${studentAnswers.t2_conf ? 'введено (+0.5 б.)' : 'не введено (0 б.)'}; Електронна родина: ${studentAnswers.t2_family === v.t2.family ? 'вірно (+0.5 б.)' : 'невірно (0 б.)'}.`);
+
+                // 3. Task 3 (1.5 pts)
+                let userECount = 0;
+                if (studentAnswers.orbitalState) {
+                    for (let sub in studentAnswers.orbitalState) {
+                        for (let val of studentAnswers.orbitalState[sub]) userECount += val;
+                    }
+                }
+                const t3_paired_ok = parseInt(studentAnswers.t3_paired || -1, 10) === v.t3.pairedValencePairs;
+                const t3_unpaired_ok = parseInt(studentAnswers.t3_unpaired || -1, 10) === v.t3.unpairedValenceE;
+                const t3_pts = (userECount > 0 ? 0.75 : 0) + (t3_paired_ok ? 0.375 : 0) + (t3_unpaired_ok ? 0.375 : 0);
+                rawPoints += t3_pts;
+                detailsHtml += renderReportItem(3, 'Графічна орбітальна формула', t3_pts >= 1.2, t3_pts, 1.5,
+                    `Побудова орбіталей: ${userECount > 0 ? 'заповнено (+0.75 б.)' : 'порожньо (0 б.)'}; Спарені пари [↑↓]: ${t3_paired_ok?'вірно (+0.375 б.)':'помилка (0 б.)'}; Неспарені e⁻ [↑]: ${t3_unpaired_ok?'вірно (+0.375 б.)':'помилка (0 б.)'}.`);
+
+                // 4. Task 4 (1.0 pt)
+                const t4_g_ok = parseInt(studentAnswers.t4_ground || -1, 10) === v.t4.groundUnpaired;
+                const t4_e_ok = parseInt(studentAnswers.t4_excited || -1, 10) === v.t4.excitedUnpaired;
+                const t4_pts = (t4_g_ok ? 0.5 : 0) + (t4_e_ok ? 0.5 : 0);
+                rawPoints += t4_pts;
+                detailsHtml += renderReportItem(4, 'Збуджений стан атома', t4_pts === 1.0, t4_pts, 1.0,
+                    `Основний стан e⁻: ${t4_g_ok?'вірно (+0.5 б.)':'невірно (0 б.)'}; Збуджений стан e⁻ (*): ${t4_e_ok?'вірно (+0.5 б.)':'невірно (0 б.)'}.`);
+
+                // 5. Task 5 (1.0 pt)
+                let t5_corr = 0;
+                if (studentAnswers.t5_bonds) {
+                    v.t5.compounds.forEach((c, idx) => {
+                        if (studentAnswers.t5_bonds[idx] === c.bond) t5_corr++;
+                    });
+                }
+                const t5_pts = (t5_corr / 4) * 1.0;
+                rawPoints += t5_pts;
+                detailsHtml += renderReportItem(5, 'Типи хімічного зв\'язку', t5_pts === 1.0, t5_pts, 1.0,
+                    `Правильно визначено ${t5_corr} з 4 типів зв'язку (+${t5_pts.toFixed(2)} б.).`);
+
+                // 6. Task 6 (1.5 pts)
+                const t6_st_ok = studentAnswers.t6_state === v.t6.state;
+                const t6_lat_ok = studentAnswers.t6_lattice === v.t6.latticeType;
+                const t6_nd_ok = studentAnswers.t6_nodes === v.t6.nodeParticles;
+                const t6_pts = (t6_st_ok ? 0.5 : 0) + (t6_lat_ok ? 0.5 : 0) + (t6_nd_ok ? 0.5 : 0);
+                rawPoints += t6_pts;
+                detailsHtml += renderReportItem(6, 'Дослідження будови речовини', t6_pts >= 1.4, t6_pts, 1.5,
+                    `Стан: ${t6_st_ok?'вірно (+0.5 б.)':'помилка'}; Ґратка: ${t6_lat_ok?'вірно (+0.5 б.)':'помилка'}; Частинки: ${t6_nd_ok?'вірно (+0.5 б.)':'помилка'}.`);
+
+                // 7. Task 7 (1.0 pt)
+                const t7_n_ok = Math.abs(parseFloat(studentAnswers.t7_n || 0) - v.t7.n_ans) < 0.05;
+                const t7_m_ok = Math.abs(parseFloat(studentAnswers.t7_m || 0) - v.t7.m_ans) < 0.5;
+                const t7_pts = (t7_n_ok ? 0.5 : 0) + (t7_m_ok ? 0.5 : 0);
+                rawPoints += t7_pts;
+                detailsHtml += renderReportItem(7, 'Розрахунки газу (n та m)', t7_pts === 1.0, t7_pts, 1.0,
+                    `Обчислення n(моль): ${t7_n_ok?'вірно (+0.5 б.)':'невірно'}; Обчислення m(г): ${t7_m_ok?'вірно (+0.5 б.)':'невірно'}.`);
+
+                // 8. Task 8 (1.0 pt)
+                const t8_w_ok = Math.abs(parseFloat(studentAnswers.t8_w || 0) - v.t8.w_ans) < 1.0;
+                const t8_m_ok = Math.abs(parseFloat(studentAnswers.t8_mElem || 0) - v.t8.m_elem_ans) < 1.0;
+                const t8_pts = (t8_w_ok ? 0.5 : 0) + (t8_m_ok ? 0.5 : 0);
+                rawPoints += t8_pts;
+                detailsHtml += renderReportItem(8, 'Масова частка елемента', t8_pts === 1.0, t8_pts, 1.0,
+                    `Масова частка w(%): ${t8_w_ok?'вірно (+0.5 б.)':'помилка'}; Маса елемента m(г): ${t8_m_ok?'вірно (+0.5 б.)':'помилка'}.`);
+
+                // 9. Task 9 (1.5 pts)
+                const t9_n_ok = Math.abs(parseFloat(studentAnswers.t9_nReact || 0) - v.t9.n_react) < 0.05;
+                const t9_V_ok = Math.abs(parseFloat(studentAnswers.t9_Vprod || 0) - v.t9.V_prod) < 0.5;
+                const t9_pts = (t9_n_ok ? 0.75 : 0) + (t9_V_ok ? 0.75 : 0);
+                rawPoints += t9_pts;
+                detailsHtml += renderReportItem(9, 'Розрахунок за рівнянням', t9_pts === 1.5, t9_pts, 1.5,
+                    `Кількість n(CaCO₃): ${t9_n_ok?'вірно (+0.75 б.)':'невірно'}; Об'єм V(CO₂): ${t9_V_ok?'вірно (+0.75 б.)':'невірно'}.`);
+
+                // 10. Task 10 (1.0 pt)
+                const t10_w_ok = Math.abs(parseFloat(studentAnswers.t10_w || 0) - v.t10.w_ans) < 1.0;
+                const t10_m_ok = Math.abs(parseFloat(studentAnswers.t10_mElem || 0) - v.t10.m_elem_ans) < 1.0;
+                const t10_pts = (t10_w_ok ? 0.5 : 0) + (t10_m_ok ? 0.5 : 0);
+                rawPoints += t10_pts;
+                detailsHtml += renderReportItem(10, 'Розрахунки складу сполуки', t10_pts === 1.0, t10_pts, 1.0,
+                    `Масова частка w(%): ${t10_w_ok?'вірно (+0.5 б.)':'помилка'}; Маса елемента m(г): ${t10_m_ok?'вірно (+0.5 б.)':'помилка'}.`);
+
+                // 11. Task 11 (1.0 pt)
+                let t11_corr = 0;
+                if (studentAnswers.t11_units) {
+                    v.t11.items.forEach((item, idx) => {
+                        if (studentAnswers.t11_units[idx] === item.unit) t11_corr++;
+                    });
+                }
+                const t11_pts = (t11_corr / 4) * 1.0;
+                rawPoints += t11_pts;
+                detailsHtml += renderReportItem(11, 'Одиниці вимірювання СІ', t11_pts === 1.0, t11_pts, 1.0,
+                    `Вірно співставлено ${t11_corr} з 4 одиниць СІ (+${t11_pts.toFixed(2)} б.).`);
+
+                // 12. Task 12 (1.5 pts)
+                const t12_n_ok = Math.abs(parseFloat(studentAnswers.t12_n || 0) - v.t12.n_ans) < 0.05;
+                const t12_V_ok = Math.abs(parseFloat(studentAnswers.t12_V || 0) - v.t12.V_ans) < 0.5;
+                const t12_pts = (t12_n_ok ? 0.75 : 0) + (t12_V_ok ? 0.75 : 0);
+                rawPoints += t12_pts;
+                detailsHtml += renderReportItem(12, 'Комплексна розрахункова задача', t12_pts === 1.5, t12_pts, 1.5,
+                    `Кількість речовини n(моль): ${t12_n_ok?'вірно (+0.75 б.)':'помилка'}; Об'єм газу V(л): ${t12_V_ok?'вірно (+0.75 б.)':'помилка'}.`);
+
+                // Grade calculation on 12-point Ukrainian Scale with Tab-Switch Penalty
+                const rawGrade = Math.min(12, Math.max(1, Math.round((rawPoints / 14.5) * 12)));
+                const penaltyDeduction = focusLossCount * 0.5;
+                const finalGrade12 = Math.max(1, Math.round(rawGrade - penaltyDeduction));
+
+                document.getElementById('repStudentName').innerText = studentData.name;
+                document.getElementById('repGroupVar').innerText = `${studentData.group} (Варіант ${studentData.variant})`;
+                document.getElementById('repGrade').innerText = `${finalGrade12} / 12 балів`;
+                document.getElementById('repRawPoints').innerText = `${rawPoints.toFixed(1)} з 14.5 (Переведено у 12-б. шкалу: ${rawGrade} б.)`;
+                document.getElementById('repFocusLoss').innerText = `${focusLossCount} спроб`;
+                document.getElementById('repPenalty').innerText = `-${penaltyDeduction.toFixed(1)} балів`;
+                
+                document.getElementById('reportTaskDetails').innerHTML = detailsHtml;
+
+                document.getElementById('examScreen').classList.add('hidden');
+                document.getElementById('reportScreen').classList.remove('hidden');
+            } catch (err) {
+                console.error("Submission Error:", err);
+            }
+        }
+
+        function renderReportItem(num, title, isSuccess, pts, maxPts, desc) {
+            return `
+                <div class="bg-slate-950 p-3.5 rounded-2xl border ${isSuccess ? 'border-emerald-900/60' : 'border-rose-900/60'} text-xs space-y-1">
+                    <div class="flex items-center justify-between font-bold">
+                        <span class="${isSuccess ? 'text-emerald-400' : 'text-rose-400'}">Завдання ${num}. ${title}</span>
+                        <span class="font-mono text-slate-300">${pts.toFixed(1)} / ${maxPts.toFixed(1)} балів</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">${desc}</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
